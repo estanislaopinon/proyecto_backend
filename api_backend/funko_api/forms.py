@@ -1,5 +1,5 @@
 from django import forms
-from funko_api.models import Funko, Pokemon
+from funko_api.models import Funko, Pokemon, Athlete
 
 
 class FunkoForm(forms.ModelForm):
@@ -22,4 +22,15 @@ class PokemonForm(forms.ModelForm):
             'type',
             'subtype',
             'level',
+        ]
+
+
+class AthleteForm(forms.ModelForm):
+    class Meta:
+        model = Athlete
+        fields = [
+            'name',
+            'sport_type',
+            'nationality',
+            'gender',
         ]

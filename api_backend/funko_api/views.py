@@ -1,10 +1,10 @@
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from funko_api.forms import FunkoForm, PokemonForm
+from funko_api.forms import FunkoForm, PokemonForm, AthleteForm
 
 
-from funko_api.models import Funko, Pokemon
-from funko_api.serializers import FunkoSerializer, PokemonSerializer
+from funko_api.models import Funko, Pokemon, Athlete
+from funko_api.serializers import FunkoSerializer, PokemonSerializer, AthleteSerializer
 from django.middleware.csrf import get_token
 
 # Create your views here.
@@ -49,6 +49,8 @@ def add_funko_view(request):
         """
         return HttpResponse(html_form)
 
+# ------! POKEMONS !---------
+
 
 def get_all_pokemons():
     pokemons = Pokemon.objects.all().order_by('name')
@@ -57,11 +59,23 @@ def get_all_pokemons():
 
 
 def index(request):
+    athlete = get_all_athlete()
     funkos = get_all_funkos()
     pokemons = get_all_pokemons()
-    return render(request, 'index.html', {'pokemons': pokemons, 'funkos': funkos})
+    return render(request, 'index.html', {'pokemons': pokemons, 'funkos': funkos, 'athlete': athlete})
 
 
 def pokemons_rest(request):
     pokemons = get_all_pokemons()
     return JsonResponse(pokemons, safe=False)
+
+
+def get_all_athlete():
+    athlete = Athlete.objects.all().order_by('nationality')
+    athlete_serializers = AthleteSerializer(athlete, many=True)
+    return athlete_serializers.data
+
+
+def athlete_rest(request):
+    athlete = get_all_athlete()
+    return JsonResponse(athlete, safe=False)

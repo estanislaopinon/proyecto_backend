@@ -31,3 +31,13 @@ class Pokemon(models.Model):
 
     def __str__(self):
         return f'{self.name} - {self.number} '
+
+
+class Athlete(models.Model):
+    name = models.CharField(max_length=128)
+    sport_type = models.CharField(max_length=128)
+    nationality = models.CharField(max_length=128)
+    gender = models.CharField(max_length=16)
+
+    def __str__(self):
+        return f'{self.name} '

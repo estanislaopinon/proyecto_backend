@@ -71,6 +71,28 @@
                 {% endfor %}
             </tbody>
         </table>
+        <h1 class="text-3xl font-bold mb-4">Lista de Deportistas</h1>
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border bg-gray-300 px-4 py-2">Name</th>
+                    <th class="border bg-gray-300 px-4 py-2">Sport_type</th>
+                    <th class="border bg-gray-300 px-4 py-2">Nationality</th>
+                    <th class="border bg-gray-300 px-4 py-2">Gender</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for athlete in athlete %}
+                <tr class="bg-white">
+                    <td class="border border-gray-300 px-4 py-2">{{ athlete.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ athlete.sport_type }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ athlete.nationality }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ athlete.gender }}</td>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 </body>
