@@ -10,7 +10,7 @@ class Funko(models.Model):
     is_backlight = models.BooleanField(default=False)
     # user_id
 
-    def str(self):
+    def __str__(self):
         return f'{self.number} - {self.name}'
 
 
@@ -27,7 +27,7 @@ class Pokemon(models.Model):
     number = models.IntegerField()
     type = models.CharField(max_length=128)
     subtype = models.CharField(max_length=128)
-    level = models.IntegerField()
+    level = models.IntegerField(default=0)
 
-    def str(self):
-        return f'{self.name} - {self.number} - {self.type} - {self.subtype} - {self.level}'
+    def __str__(self):
+        return f'{self.name} - {self.number} '

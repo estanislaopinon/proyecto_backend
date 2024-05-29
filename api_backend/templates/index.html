@@ -47,6 +47,30 @@
                 {% endfor %}
             </tbody>
         </table>
+        <h1 class="text-3xl font-bold mb-4">Lista de Pokemons</h1>
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border bg-gray-300 px-4 py-2">Name</th>
+                    <th class="border bg-gray-300 px-4 py-2">Number</th>
+                    <th class="border bg-gray-300 px-4 py-2">Type</th>
+                    <th class="border bg-gray-300 px-4 py-2">Subtype</th>
+                    <th class="border bg-gray-300 px-4 py-2">Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pokemon in pokemons %}
+                <tr class="bg-white">
+                    <td class="border border-gray-300 px-4 py-2">{{ pokemon.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ pokemon.number }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ pokemon.type }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ pokemon.subtype }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ pokemon.level }}</td>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 </body>

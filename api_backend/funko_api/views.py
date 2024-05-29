@@ -1,10 +1,10 @@
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from funko_api.forms import FunkoForm
+from funko_api.forms import FunkoForm, PokemonForm
 
 
-from funko_api.models import Funko
-from funko_api.serializers import FunkoSerializer
+from funko_api.models import Funko, Pokemon
+from funko_api.serializers import FunkoSerializer, PokemonSerializer
 from django.middleware.csrf import get_token
 
 # Create your views here.
@@ -16,9 +16,9 @@ def get_all_funkos():
     return funkos_serializers.data
 
 
-def index(request):
-    funkos = get_all_funkos()
-    return render(request, 'index.html', {'funkos': funkos})
+# def index(request):
+#    funkos = get_all_funkos()
+#    return render(request, 'index.html', {'funkos': funkos})
 
 
 def funkos_rest(request):
@@ -48,3 +48,20 @@ def add_funko_view(request):
             </form>
         """
         return HttpResponse(html_form)
+
+
+def get_all_pokemons():
+    pokemons = Pokemon.objects.all().order_by('name')
+    pokemons_serializers = PokemonSerializer(pokemons, many=True)
+    return pokemons_serializers.data
+
+
+def index(request):
+    funkos = get_all_funkos()
+    pokemons = get_all_pokemons()
+    return render(request, 'index.html', {'pokemons': pokemons, 'funkos': funkos})
+
+
+def pokemons_rest(request):
+    pokemons = get_all_pokemons()
+    return JsonResponse(pokemons, safe=False)
