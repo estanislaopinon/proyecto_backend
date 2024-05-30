@@ -21,6 +21,8 @@ class User(models.Model):
     def str(self):
         return self.name
 
+# HACER UNA API DE POKEMON Y OTRA DE AHTLETE
+
 
 class Pokemon(models.Model):
     name = models.CharField(max_length=128)
