@@ -1,10 +1,12 @@
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from funko_api.forms import FunkoForm, UserForm, PokemonForm, AthleteForm
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from funko_api.forms import FunkoForm, UserForm, AthleteForm
 
 
-from funko_api.models import Funko, User, Pokemon, Athlete
-from funko_api.serializers import FunkoSerializer, UserSerializer, PokemonSerializer, AthleteSerializer
+from funko_api.models import Funko, User, Athlete
+from funko_api.serializers import FunkoSerializer, UserSerializer, AthleteSerializer
 from django.middleware.csrf import get_token
 
 # Create your views here.
@@ -16,9 +18,9 @@ def get_all_funkos():
     return funkos_serializers.data
 
 
-# def index(request):
-#    funkos = get_all_funkos()
-#    return render(request, 'index.html', {'funkos': funkos})
+def index(request):
+    funkos = get_all_funkos()
+    return render(request, 'index.html', {'funkos': funkos})
 
 
 def funkos_rest(request):
@@ -36,7 +38,7 @@ def add_funko_view(request):
         funko_form = FunkoForm(request.POST)
         if funko_form.is_valid():
             funko = funko_form.save()
-            return HttpResponseRedirect('/')
+            return redirect('index_funkos')
     if request.method == 'GET':
         funko_form = FunkoForm()
         csrf_token = get_token(request)
@@ -50,45 +52,37 @@ def add_funko_view(request):
         return HttpResponse(html_form)
 
 
-def add_user_view(request):
+class NewFunkoView(CreateView):
+    form_class = FunkoForm
+    template_name = 'from_funko.html'
+    success_url = '/index_funkos/'
+# def add_user_view(request):
 
-    if request.method == 'POST':
-        user_form = UserForm(request.POST)
-        if user_form.is_valid():
-            user = user_form.save()
-            return HttpResponseRedirect('/')
-    if request.method == 'GET':
-        user_form = UserForm()
-        csrf_token = get_token(request)
-        html_form = f"""
-            <form method="post">
-            <input type="hidden" name="csrfmiddlewaretoken" value="{csrf_token}">
-                {user_form.as_p()}
-                <button type="submit">Submit</button>
-            </form>
-        """
-        return HttpResponse(html_form)
+#     if request.method == 'POST':
+#         user_form = UserForm(request.POST)
+#         if user_form.is_valid():
+#             user = user_form.save()
+#             return HttpResponseRedirect('/')
+#     if request.method == 'GET':
+#         user_form = UserForm()
+#         csrf_token = get_token(request)
+#         html_form = f"""
+#             <form method="post">
+#             <input type="hidden" name="csrfmiddlewaretoken" value="{csrf_token}">
+#                 {user_form.as_p()}
+#                 <button type="submit">Submit</button>
+#             </form>
+#         """
+#         return HttpResponse(html_form)
 
 
 # ------! POKEMONS !---------
 
 
-def get_all_pokemons():
-    pokemons = Pokemon.objects.all().order_by('name')
-    pokemons_serializers = PokemonSerializer(pokemons, many=True)
-    return pokemons_serializers.data
-
-
-def pokemons_rest(request):
-    pokemons = get_all_pokemons()
-    return JsonResponse(pokemons, safe=False)
-
-
 def index(request):
     athlete = get_all_athlete()
     funkos = get_all_funkos()
-    pokemon = get_all_pokemons()
-    return render(request, 'index.html', {'funkos': funkos, 'pokemons': pokemon, 'athlete': athlete})
+    return render(request, 'index.html', {'funkos': funkos, 'athlete': athlete})
 
 
 def get_all_athlete():

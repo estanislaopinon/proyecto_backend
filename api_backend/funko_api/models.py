@@ -24,17 +24,6 @@ class User(models.Model):
 # HACER UNA API DE POKEMON Y OTRA DE AHTLETE
 
 
-class Pokemon(models.Model):
-    name = models.CharField(max_length=128)
-    number = models.IntegerField()
-    type = models.CharField(max_length=128)
-    # subtype = models.CharField(max_length=128, default='-')
-    level = models.IntegerField(default=0)
-
-    def __str__(self):
-        return f'{self.id} - {self.name} '
-
-
 class Athlete(models.Model):
     name = models.CharField(max_length=128)
     sport_type = models.CharField(max_length=128)
