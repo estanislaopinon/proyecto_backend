@@ -14,10 +14,21 @@ def get_all_autos():
     return autos_serializers.data
 
 
-def index(request):
+def get_all_marca():
+    marcas = Marca.objects.all().order_by('nombre')
+    marcas_serializers = MarcaSerializer(marcas, many=True)
+    return marcas_serializers.data
+
+
+def index_autos(request):
     autos = get_all_autos()
     return render(request, 'index_auto.html', {'autos': autos})
 # Create your views here.
+
+
+def index_marca(request):
+    marcas = get_all_marca()
+    return render(request, 'index_marca.html', {'marcas': marcas})
 
 
 def autos_rest(request):
@@ -25,11 +36,21 @@ def autos_rest(request):
     return JsonResponse(autos, safe=False)
 
 
+def marcas_rest(request):
+    marcas = get_all_marca()
+    return JsonResponse(marcas, safe=False)
+
+
 class NewAutoView(CreateView):
     form_class = AutoForm
     template_name = 'new_auto.html'
     success_url = '/index_auto/'
 
+
+class NewMarcaView(CreateView):
+    form_class = MarcaForm
+    template_name = 'new_marca.html'
+    success_url = '/index_marca/'
 # def add_auto_view(request):
 
 #     if request.method == 'POST':
