@@ -2,6 +2,7 @@ from django.urls import path
 from autos import views
 
 urlpatterns = [
+    path('', views.index, name='index'),
     path('index_auto/', views.index_autos, name='index_auto'),
     path('autos_rest/', views.autos_rest, name='autos_rest'),
     path('new_auto/', views.NewAutoView.as_view(), name='new_auto'),

@@ -18,9 +18,9 @@ def get_all_funkos():
     return funkos_serializers.data
 
 
-def index(request):
+def index_funko(request):
     funkos = get_all_funkos()
-    return render(request, 'index.html', {'funkos': funkos})
+    return render(request, 'index_funko.html', {'funkos': funkos})
 
 
 def funkos_rest(request):
@@ -75,11 +75,10 @@ class NewFunkoView(CreateView):
 #         """
 #         return HttpResponse(html_form)
 
-
-class NewUserView(CreateView):
-    form_class = UserForm
-    template_name = 'from_user.html'
-    success_url = '/users_rest/'
+# class NewUserView(CreateView):
+#     form_class = UserForm
+#     template_name = 'from_user.html'
+#     success_url = '/users_rest/'
 
 
 def index(request):

@@ -8,6 +8,10 @@ from autos.serializers import MarcaSerializer, AutoSerializer, UsuarioSerializer
 from django.middleware.csrf import get_token
 
 
+def index(request):
+    return render(request, 'index.html')
+
+
 def get_all_autos():
     autos = Auto.objects.all().order_by('modelo')
     autos_serializers = AutoSerializer(autos, many=True)
