@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from funko_api.models import Funko, User, Athlete
+from funko_api.models import Funko, User
 
 
 class FunkoSerializer(serializers.ModelSerializer):
@@ -12,10 +12,4 @@ class FunkoSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
-
-
-class AthleteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Athlete
         fields = '__all__'
