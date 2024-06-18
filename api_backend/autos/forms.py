@@ -31,6 +31,7 @@ class UsuarioForm(forms.ModelForm):
 
 
 class PropidedadAutoForm(forms.ModelForm):
+
     class Meta:
         model = PropiedadAuto
         fields = [

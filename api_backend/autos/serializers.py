@@ -6,7 +6,7 @@ class MarcaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Marca
         # fields = ['name', 'number', 'collection', 'is_backlight']
-        fields = '__all__'
+        fields = ['nombre']
 
 
 class AutoSerializer(serializers.ModelSerializer):
@@ -14,16 +14,16 @@ class AutoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Auto
-        fields = '__all__'
+        fields = ['marca', 'modelo', 'anio', 'color']
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = '__all__'
+        fields = ['nombre', 'autos']
 
 
 class PropiedadAutoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PropiedadAuto
-        fields = '__all__'
+        fields = ['usuario', 'auto', 'fecha_adquisicion']

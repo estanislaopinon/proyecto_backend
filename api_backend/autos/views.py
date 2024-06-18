@@ -20,6 +20,19 @@ def get_all_marca():
     return marcas_serializers.data
 
 
+def get_all_usuario():
+    usuarios = Usuario.objects.all().order_by('nombre')
+    usuarios_serializers = UsuarioSerializer(usuarios, many=True)
+    return usuarios_serializers.data
+
+
+def get_all_propiedadAuto():
+    propiedadauto = PropiedadAuto.objects.all().order_by('usuario')
+    propiedadauto_serializers = PropiedadAutoSerializer(
+        propiedadauto, many=True)
+    return propiedadauto_serializers.data
+
+
 def index_autos(request):
     autos = get_all_autos()
     return render(request, 'index_auto.html', {'autos': autos})
@@ -29,6 +42,16 @@ def index_autos(request):
 def index_marca(request):
     marcas = get_all_marca()
     return render(request, 'index_marca.html', {'marcas': marcas})
+
+
+def index_usuario(request):
+    usuarios = Usuario.objects.all().order_by('nombre')
+    return render(request, 'index_usuario.html', {'usuarios': usuarios})
+
+
+def index_propiedadauto(request):
+    propiedadauto = PropiedadAuto.objects.all().order_by('usuario')
+    return render(request, 'index_propiedad_auto.html', {'propiedadAuto': propiedadauto})
 
 
 def autos_rest(request):
@@ -41,6 +64,16 @@ def marcas_rest(request):
     return JsonResponse(marcas, safe=False)
 
 
+def usuario_rest(request):
+    usuarios = get_all_usuario()
+    return JsonResponse(usuarios, safe=False)
+
+
+def propiedadauto_rest(request):
+    propiedadauto = get_all_propiedadAuto()
+    return JsonResponse(propiedadauto, safe=False)
+
+
 class NewAutoView(CreateView):
     form_class = AutoForm
     template_name = 'new_auto.html'
@@ -51,6 +84,21 @@ class NewMarcaView(CreateView):
     form_class = MarcaForm
     template_name = 'new_marca.html'
     success_url = '/index_marca/'
+
+
+class NewUsuarioView(CreateView):
+    form_class = UsuarioForm
+    template_name = 'new_usuario.html'
+    success_url = '/index_usuario/'
+
+
+class NewPropiedadAutoView(CreateView):
+    model = PropiedadAuto
+    form_class = PropidedadAutoForm
+    template_name = 'new_propiedadauto.html'
+    success_url = '/index_propiedad_auto/'
+
+
 # def add_auto_view(request):
 
 #     if request.method == 'POST':

@@ -19,7 +19,7 @@ class Auto(models.Model):
     # user_id
 
     def __str__(self):
-        return f'{self.id} - {self.modelo}'
+        return f' - {self.modelo}'
 
 
 class Usuario(models.Model):

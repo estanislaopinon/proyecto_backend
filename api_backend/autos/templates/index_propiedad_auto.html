@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Propiedades de Autos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="my-4">Lista de Propiedades de Autos</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Modelo del Auto</th>
+                    <th>Fecha de Adquisición</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for propiedad in propiedadAuto %}
+                <tr>
+                    <td>{{ propiedad.usuario.nombre }}</td>
+                    <td>{{ propiedad.auto.modelo }}</td>
+                    <td>{{ propiedad.fecha_adquisicion }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
